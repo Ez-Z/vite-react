@@ -1,18 +1,12 @@
-import { Routes, Route } from "react-router-dom";
 import styles from "./AppLayout.module.scss";
-import Home from "@/pages/Home";
-import SecondPage from "@/pages/SecondPage";
-// import { useRoutes } from "react-router-dom";
-import RoutersOutlet from "@/RoutersOutlet";
+import Routes from "@/Routes";
+import { lazy, Suspense } from "react";
+import { use } from "react-router-dom";
 
 function AppLayout() {
   return (
     <div className={styles.AppLayout}>
-      <RoutersOutlet />
-      {/* <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/second" element={<SecondPage />}></Route>
-      </Routes> */}
+      <Routes />
     </div>
   );
 }

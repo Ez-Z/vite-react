@@ -23,6 +23,8 @@ export default defineConfig({
     },
   },
   server: {
+    port: 9977,
+    open: 'http://127.0.0.1:9977/',
     // proxy: {
     //   "/api": {
     //     target: "http://10.0.40.200:8979",
