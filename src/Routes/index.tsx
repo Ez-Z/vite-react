@@ -3,9 +3,11 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 
+const AppLayout = lazy(() => import("@/layout/AppLayout"));
 const Home = lazy(() => import("@/pages/Home"));
 const SecondPage = lazy(() => import("@/pages/SecondPage"));
 const Children = lazy(() => import("@/pages/Children"));
+const HomeChildren = lazy(() => import("@/pages/Home/Children"));
 
 const RoutesOut = () => {
   //import!
@@ -45,35 +47,54 @@ const RoutesOut = () => {
     //     element: <Navigate to="/home" />,
     //   },
     // ]
-
     [
       {
-        path: "/home",
-        element: (
-          <Suspense>
-            <Home />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/home/child/:id?",
-        element: (
-          <Suspense>
-            <Children />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/second",
-        element: (
-          <Suspense>
-            <SecondPage />
-          </Suspense>
-        ),
-      },
-      {
         path: "/",
-        element: <Navigate to="/home" />,
+        element: (
+          <Suspense>
+            <AppLayout />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "/home",
+            element: (
+              <Suspense>
+                <Home />
+              </Suspense>
+            ),
+            children: [
+              {
+                path: "/home/children",
+                element: (
+                  <Suspense>
+                    <HomeChildren />
+                  </Suspense>
+                ),
+              },
+            ],
+          },
+          {
+            path: "/home/child/:id?",
+            element: (
+              <Suspense>
+                <Children />
+              </Suspense>
+            ),
+          },
+          {
+            path: "/second",
+            element: (
+              <Suspense>
+                <SecondPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: "/",
+            element: <Navigate to="/home" />,
+          },
+        ],
       },
     ]
   );

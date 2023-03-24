@@ -1,10 +1,10 @@
 import styles from "./AppLayout.module.scss";
-import Routes from "@/Routes";
+import { Outlet } from "react-router-dom";
 
 function AppLayout() {
   return (
     <div className={styles.AppLayout}>
-      <Routes />
+      <Outlet />
     </div>
   );
 }

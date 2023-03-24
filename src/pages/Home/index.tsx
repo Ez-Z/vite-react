@@ -4,11 +4,10 @@ import viteLogo from "/vite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { setState } from "@/store/global";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import styles from "./index.module.scss";
 
 function Home(props) {
-  console.log("🚀 ~ file: index.tsx:11 ~ Home ~ props:", props)
   const [count, setCount] = useState(0);
   const dispatch: AppDispatch = useDispatch();
   const { currentTab } = useSelector((state: RootState) => state.global);
@@ -16,6 +15,7 @@ function Home(props) {
 
   return (
     <div className={styles.App}>
+      <Outlet />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className={styles.logo} alt="Vite logo" />

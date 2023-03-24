@@ -5,7 +5,7 @@ console.log("🚀 ~ file: index.tsx:4 ~ Second ~ props:", props)
 
   return (
     <div className={styles.App}>
-      Children
+      home Children
     </div>
   );
 }
