@@ -1,11 +1,18 @@
 const routes = [
   {
-    path: "/home",
+    path: "/",
     component: '/Home',
+    index: true,
+    // children: [
+    //   {
+    //     path: "/home/children",
+    //     component: '/Home/Children',
+    //   },
+    // ]
   },
   {
-    path: "/home/child",
-    component: '/Home/Children',
+    path: "/child",
+    component: '/Children',
   },
   {
     path: "/second",

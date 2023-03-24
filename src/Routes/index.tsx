@@ -3,15 +3,13 @@ import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 
-// const Home = lazy(() => import("@/pages/Home"));
-// const SecondPage = lazy(() => import("@/pages/SecondPage"));
+const Home = lazy(() => import("@/pages/Home"));
+const SecondPage = lazy(() => import("@/pages/SecondPage"));
+const Children = lazy(() => import("@/pages/Children"));
 
 const RoutesOut = () => {
   //import!
-  const getRoutesList = (
-    rts: Array<any>,
-    isChildren: boolean = false
-  ): Array<any> => {
+  const getRoutesList = (rts: Array<any>): Array<any> => {
     return rts.map((item) => {
       const elmPath = `../pages${item.component}`;
       const Elm = lazy(() => import(elmPath /* @vite-ignore */));
@@ -23,6 +21,7 @@ const RoutesOut = () => {
               <Elm />
             </Suspense>
           ),
+          children: getRoutesList(item?.children),
         };
       } else {
         return {
@@ -36,50 +35,47 @@ const RoutesOut = () => {
       }
     });
   };
-
-  const routeOpt = getRoutesList(routes);
+  const newRoutes = getRoutesList(routes);
 
   const Routes = useRoutes(
-    [
-      ...routeOpt,
-      {
-        path: "/",
-        element: <Navigate to={routeOpt?.[0]?.path} />,
-      },
-    ]
-
-    //   [
-    //   {
-    //     path: "/home",
-    //     element: (
-    //       <Suspense>
-    //         <Home />
-    //       </Suspense>
-    //     ),
-    //     // children: [
-    //     // {
-    //     //   path: "message",
-    //     //   element: <Message />,
-    //     //   children: [
-    //     //     // 声明接收参数
-    //     //     { path: "detail/:id/:title/:content", element: <Detail /> },
-    //     //   ],
-    //     // },
-    //     // ],
-    //   },
-    //   {
-    //     path: "/second",
-    //     element: (
-    //       <Suspense>
-    //         <SecondPage />
-    //       </Suspense>
-    //     ),
-    //   },
+    // [
+    //   ...newRoutes,
     //   {
     //     path: "/",
     //     element: <Navigate to="/home" />,
     //   },
     // ]
+
+    [
+      {
+        path: "/home",
+        element: (
+          <Suspense>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/home/child/:id?",
+        element: (
+          <Suspense>
+            <Children />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/second",
+        element: (
+          <Suspense>
+            <SecondPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/",
+        element: <Navigate to="/home" />,
+      },
+    ]
   );
   return Routes;
 };

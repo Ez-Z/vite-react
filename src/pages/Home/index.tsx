@@ -7,7 +7,8 @@ import { setState } from "@/store/global";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.module.scss";
 
-function Home() {
+function Home(props) {
+  console.log("🚀 ~ file: index.tsx:11 ~ Home ~ props:", props)
   const [count, setCount] = useState(0);
   const dispatch: AppDispatch = useDispatch();
   const { currentTab } = useSelector((state: RootState) => state.global);
@@ -46,7 +47,11 @@ function Home() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
           <br />
-          <span>{currentTab}<br />{import.meta.env.VITE_APP_PROXY_URL}</span>
+          <span>
+            {currentTab}
+            <br />
+            {import.meta.env.VITE_APP_PROXY_URL}
+          </span>
         </p>
       </div>
       <p className={styles["read-the-docs"]}>
