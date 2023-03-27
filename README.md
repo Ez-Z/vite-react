@@ -10,11 +10,13 @@ npm i
 yarn
 
 // 启动本地服务
-npm run dev
+npm run dev // dev模式
+npm start // test模式
 
-// 测试环境
+// 测试环境打包
 npm run build:test
-// 测试环境
+
+// 生产环境打包
 npm run build:prod
 ```
 
