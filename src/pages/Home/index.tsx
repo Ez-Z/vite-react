@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { setState } from "@/store/global";
 import { useNavigate, Outlet } from "react-router-dom";
+import { Button } from "antd-mobile";
 import styles from "./index.module.scss";
 
 function Home(props) {
@@ -15,6 +16,7 @@ function Home(props) {
 
   return (
     <div className={styles.App}>
+      <Button>按钮</Button>
       <Outlet />
       <div>
         <a href="https://vitejs.dev" target="_blank">

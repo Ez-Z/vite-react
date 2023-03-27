@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode test",
+    "dev": "vite --mode dev",
+    "start": "vite --mode test",
     "build": "vite build",
     "build:tsc": "tsc && vite build",
     "build:prod": "vite build --mode prod",
@@ -14,12 +15,14 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@types/good-storage": "^1.1.0",
+    "antd-mobile": "^5.28.2",
     "axios": "0.26",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "rollup-plugin-visualizer": "^5.9.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.5",
