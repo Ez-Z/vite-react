@@ -18,14 +18,14 @@ export default defineConfig({
     // }),
   ],
   css: {
-    postcss: {
-      plugins: [
-        pxtovw({
-          viewportWidth: 375,
-          viewportUnit: "vw",
-        }),
-      ],
-    },
+    // postcss: {
+    //   plugins: [
+    //     pxtovw({
+    //       viewportWidth: 375,
+    //       viewportUnit: "vw",
+    //     }),
+    //   ],
+    // },
   },
   server: {
     port: 9977,
