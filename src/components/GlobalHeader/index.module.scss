@@ -1,0 +1,15 @@
+.globalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: solid 1px #eee;
+  box-shadow: #eee 0 3px 3px;
+  padding: 0 20px;
+
+  .pageTitle {
+    font-size: 20px;
+  }
+}

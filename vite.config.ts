@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+// import { visualizer } from "rollup-plugin-visualizer";
 import pxtovw from "postcss-px-to-viewport";
 import path from "path";
-
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,20 +11,25 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    // visualizer({
+    //   open: true,
+    // }),
+  ],
   css: {
-    postcss: {
-      plugins: [
-        pxtovw({
-          viewportWidth: 375,
-          viewportUnit: "vw",
-        }),
-      ],
-    },
+    // postcss: {
+    //   plugins: [
+    //     pxtovw({
+    //       viewportWidth: 375,
+    //       viewportUnit: "vw",
+    //     }),
+    //   ],
+    // },
   },
   server: {
     port: 9977,
-    open: 'http://127.0.0.1:9977/',
+    open: "http://127.0.0.1:9977/",
     // proxy: {
     //   "/api": {
     //     target: "http://10.0.40.200:8979",

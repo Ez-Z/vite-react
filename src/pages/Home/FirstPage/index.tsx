@@ -1,19 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useState, memo } from "react";
+import reactLogo from "@/assets/react.svg";
 import viteLogo from "/vite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { setState } from "@/store/global";
-import Home from "@/pages/Home";
-import styles from "@/App.module.scss";
+import { useNavigate, Outlet } from "react-router-dom";
+import { Button } from "antd";
+import styles from "./index.module.scss";
 
-function App() {
+function Home(props) {
   const [count, setCount] = useState(0);
   const dispatch: AppDispatch = useDispatch();
   const { currentTab } = useSelector((state: RootState) => state.global);
+  const router = useNavigate();
 
   return (
     <div className={styles.App}>
+      <Button
+        onClick={() => {
+          router("/home/first/form");
+        }}
+      >
+        跳转到子页面
+      </Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className={styles.logo} alt="Vite logo" />
@@ -26,12 +35,17 @@ function App() {
           />
         </a>
       </div>
-      <Home />
-      <h1>Vite + React</h1>
+      <h1
+        onClick={() => {
+          router("/second");
+        }}
+      >
+        Vite + React
+      </h1>
       <div className={styles.card}>
         <button
           onClick={() => {
-            dispatch(setState({ currentTab: count + 'home' }));
+            dispatch(setState({ currentTab: count + "home" }));
             setCount((count) => count + 1);
           }}
         >
@@ -40,7 +54,11 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
           <br />
-          <span>{currentTab}</span>
+          <span>
+            {currentTab}
+            <br />
+            {import.meta.env.VITE_APP_PROXY_URL}
+          </span>
         </p>
       </div>
       <p className={styles["read-the-docs"]}>
@@ -50,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(Home);
