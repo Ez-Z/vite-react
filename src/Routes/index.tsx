@@ -13,12 +13,14 @@ interface Router {
   hideInMenu?: boolean;
 }
 
-const AppLayout = lazy(() => import("@/layout/AppLayout"));
-const Home = lazy(() => import("@/pages/Home"));
-const HomeFirst = lazy(() => import("@/pages/Home/FirstPage"));
-const SecondPage = lazy(() => import("@/pages/SecondPage"));
-const FormPage = lazy(() => import("@/pages/Home/FirstPage/Form"));
-const HomeChildren = lazy(() => import("@/pages/Home/Children"));
+const defaultRoute = '/home/first'
+
+// const AppLayout = lazy(() => import("@/layout/AppLayout"));
+// const Home = lazy(() => import("@/pages/Home"));
+// const HomeFirst = lazy(() => import("@/pages/Home/FirstPage"));
+// const SecondPage = lazy(() => import("@/pages/SecondPage"));
+// const FormPage = lazy(() => import("@/pages/Home/FirstPage/Form"));
+// const HomeChildren = lazy(() => import("@/pages/Home/Children"));
 
 const getRoutesList = (rts: Array<any>): Array<any> => {
   return rts.map((item) => {
@@ -45,82 +47,82 @@ const getRoutesList = (rts: Array<any>): Array<any> => {
   });
 };
 
-const routes = [
-  {
-    path: "/",
-    element: (
-      <Suspense fallback={<Spin size="large" />}>
-        <AppLayout />
-      </Suspense>
-    ),
-    children: [
-      {
-        path: "/home",
-        label: "首页",
-        element: (
-          <Suspense>
-            <Home />
-          </Suspense>
-        ),
-        children: [
-          {
-            path: "/home",
-            element: <Navigate to="/home/first" />,
-          },
-          {
-            path: "/home/first",
-            label: "首页子页面1",
-            element: (
-              <Suspense fallback={<Spin size="large" />}>
-                <HomeFirst />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/home/first/form",
-            label: "首页子页面1的子页面",
-            hideInMenu: true,
-            element: (
-              <Suspense fallback={<Spin size="large" />}>
-                <FormPage />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/home/children",
-            label: "首页子页面1",
-            element: (
-              <Suspense fallback={<Spin size="large" />}>
-                <HomeChildren />
-              </Suspense>
-            ),
-          },
-        ],
-      },
-      // {
-      //   path: "/home/child/:id?",
-      //   element: (
-      //     <Suspense>
-      //       <Children />
-      //     </Suspense>
-      //   ),
-      // },
-      {
-        path: "/second",
-        label: "二级页",
-        element: (
-          <Suspense fallback={<Spin size="large" />}>
-            <SecondPage />
-          </Suspense>
-        ),
-      },
-      {
-        path: "/",
-        element: <Navigate to="/home" />,
-      },
-    ],
-  },
-];
+// const routes = [
+//   {
+//     path: "/",
+//     element: (
+//       <Suspense fallback={<Spin size="large" />}>
+//         <AppLayout />
+//       </Suspense>
+//     ),
+//     children: [
+//       {
+//         path: "/home",
+//         label: "首页",
+//         element: (
+//           <Suspense>
+//             <Home />
+//           </Suspense>
+//         ),
+//         children: [
+//           {
+//             path: "/home",
+//             element: <Navigate to="/home/first" />,
+//           },
+//           {
+//             path: "/home/first",
+//             label: "首页子页面1",
+//             element: (
+//               <Suspense fallback={<Spin size="large" />}>
+//                 <HomeFirst />
+//               </Suspense>
+//             ),
+//           },
+//           {
+//             path: "/home/first/form",
+//             label: "首页子页面1的子页面",
+//             hideInMenu: true,
+//             element: (
+//               <Suspense fallback={<Spin size="large" />}>
+//                 <FormPage />
+//               </Suspense>
+//             ),
+//           },
+//           {
+//             path: "/home/children",
+//             label: "首页子页面1",
+//             element: (
+//               <Suspense fallback={<Spin size="large" />}>
+//                 <HomeChildren />
+//               </Suspense>
+//             ),
+//           },
+//         ],
+//       },
+//       // {
+//       //   path: "/home/child/:id?",
+//       //   element: (
+//       //     <Suspense>
+//       //       <Children />
+//       //     </Suspense>
+//       //   ),
+//       // },
+//       {
+//         path: "/second",
+//         label: "二级页",
+//         element: (
+//           <Suspense fallback={<Spin size="large" />}>
+//             <SecondPage />
+//           </Suspense>
+//         ),
+//       },
+//       {
+//         path: "/",
+//         element: <Navigate to="/home" />,
+//       },
+//     ],
+//   },
+// ];
 
 const getMenu = (rts: Array<Router> | undefined): Array<any> => {
   return rts
@@ -190,23 +192,14 @@ const menus = getMenu(routesList?.[0]?.children);
 const menusP = getMenuP(routesList?.[0]?.children);
 
 const RoutesOut = () => {
+  const routes = getRoutesList(routesList);
+  routes?.[0]?.children?.push({
+    path: "/",
+    element: <Navigate to={defaultRoute} />,
+  })
   //import!
   const Routes = useRoutes(
-    // [
-    //   ...newRoutes,
-    //   {
-    //     path: "/",
-    //     element: <Navigate to="/home" />,
-    //   },
-    // ]
-    [
-      ...getRoutesList(routesList),
-      {
-        path: "/",
-        element: <Navigate to="/home/first" />,
-      },
-    ]
-    // routes
+    routes
   );
   return Routes;
 };
