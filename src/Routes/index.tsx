@@ -2,41 +2,47 @@ import { Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import { Spin } from "antd";
-// import routes from "./routes";
+import routesList from "./routes";
+interface Router {
+  label?: string;
+  path: string;
+  key?: string;
+  children?: Array<Router>;
+  element: any;
+  hideInMenu?: boolean;
+}
 
 const AppLayout = lazy(() => import("@/layout/AppLayout"));
 const Home = lazy(() => import("@/pages/Home"));
 const HomeFirst = lazy(() => import("@/pages/Home/FirstPage"));
 const SecondPage = lazy(() => import("@/pages/SecondPage"));
-const Children = lazy(() => import("@/pages/Children"));
+const FormPage = lazy(() => import("@/pages/Home/FirstPage/Form"));
 const HomeChildren = lazy(() => import("@/pages/Home/Children"));
 
-// const getRoutesList = (rts: Array<any>): Array<any> => {
-//   return rts.map((item) => {
-//     const elmPath = `../pages${item.component}`;
-//     const Elm = lazy(() => import(elmPath /* @vite-ignore */));
-//     if (item?.children && item?.children.length > 0) {
-//       return {
-//         path: item.path,
-//         element: (
-//           <Suspense fallback={<div>loading</div>}>
-//             <Elm />
-//           </Suspense>
-//         ),
-//         children: getRoutesList(item?.children),
-//       };
-//     } else {
-//       return {
-//         path: item.path,
-//         element: (
-//           <Suspense fallback={<div>loading</div>}>
-//             <Elm />
-//           </Suspense>
-//         ),
-//       };
-//     }
-//   });
-// };
+const getRoutesList = (rts: Array<any>): Array<any> => {
+  return rts.map((item) => {
+    if (item?.children && item?.children.length > 0) {
+      return {
+        path: item.path,
+        element: (
+          <Suspense fallback={<Spin size="large" />}>
+            <item.element />
+          </Suspense>
+        ),
+        children: getRoutesList(item?.children),
+      };
+    } else {
+      return {
+        path: item.path,
+        element: (
+          <Suspense fallback={<Spin size="large" />}>
+            <item.element />
+          </Suspense>
+        ),
+      };
+    }
+  });
+};
 
 const routes = [
   {
@@ -62,7 +68,7 @@ const routes = [
           },
           {
             path: "/home/first",
-            label: "首页1",
+            label: "首页子页面1",
             element: (
               <Suspense fallback={<Spin size="large" />}>
                 <HomeFirst />
@@ -70,8 +76,18 @@ const routes = [
             ),
           },
           {
+            path: "/home/first/form",
+            label: "首页子页面1的子页面",
+            hideInMenu: true,
+            element: (
+              <Suspense fallback={<Spin size="large" />}>
+                <FormPage />
+              </Suspense>
+            ),
+          },
+          {
             path: "/home/children",
-            label: "首页2",
+            label: "首页子页面1",
             element: (
               <Suspense fallback={<Spin size="large" />}>
                 <HomeChildren />
@@ -105,26 +121,37 @@ const routes = [
   },
 ];
 
-const getMenu = (rts) => {
+const getMenu = (rts: Array<Router>): Array<any> => {
   return rts
     .filter((item) => item.label)
     .map((item) => {
-      if (item.children) {
-        return {
-          label: item.label,
-          key: item.key ?? item.path,
-          children: getMenu(item.children),
-        };
-      } else {
-        return {
-          label: item.label,
-          key: item.key ?? item.path,
-        };
+      if (!item.hideInMenu) {
+        if (item.children) {
+          const childrenA = getMenu(item.children);
+          if (childrenA.length > 0) {
+            return {
+              label: item.label,
+              key: item.key ?? item.path,
+              children: getMenu(item.children),
+            };
+          } else {
+            return {
+              label: item.label,
+              key: item.key ?? item.path,
+            };
+          }
+        } else {
+          return {
+            label: item.label,
+            key: item.key ?? item.path,
+          };
+        }
       }
-    });
+    })
+    .filter((it) => it);
 };
 
-const getMenuP = (rts, obj = {}) => {
+const getMenuP = (rts: Array<Router>, obj = {}): any => {
   const tempObj = obj ?? {};
   rts
     .filter((item) => item.label)
@@ -146,8 +173,8 @@ const getMenuP = (rts, obj = {}) => {
   return tempObj;
 };
 
-const menus = getMenu(routes?.[0]?.children);
-const menusP = getMenuP(routes?.[0]?.children);
+const menus = getMenu(routesList?.[0]?.children);
+const menusP = getMenuP(routesList?.[0]?.children);
 
 const RoutesOut = () => {
   //import!
@@ -159,7 +186,14 @@ const RoutesOut = () => {
     //     element: <Navigate to="/home" />,
     //   },
     // ]
-    routes
+    [
+      ...getRoutesList(routesList),
+      {
+        path: "/",
+        element: <Navigate to="/home/first" />,
+      },
+    ]
+    // routes
   );
   return Routes;
 };

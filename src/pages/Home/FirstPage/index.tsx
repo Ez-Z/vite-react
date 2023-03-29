@@ -16,7 +16,13 @@ function Home(props) {
 
   return (
     <div className={styles.App}>
-      <Button>按钮</Button>
+      <Button
+        onClick={() => {
+          router("/home/first/form");
+        }}
+      >
+        跳转到子页面
+      </Button>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className={styles.logo} alt="Vite logo" />
