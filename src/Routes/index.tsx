@@ -9,6 +9,7 @@ interface Router {
   key?: string;
   children?: Array<Router>;
   element: any;
+  icon?: any;
   hideInMenu?: boolean;
 }
 
@@ -121,38 +122,50 @@ const routes = [
   },
 ];
 
-const getMenu = (rts: Array<Router>): Array<any> => {
+const getMenu = (rts: Array<Router> | undefined): Array<any> => {
   return rts
     .filter((item) => item.label)
     .map((item) => {
+      let temp = {
+        label: item.label,
+        key: item.key ?? item.path,
+      };
       if (!item.hideInMenu) {
         if (item.children) {
           const childrenA = getMenu(item.children);
           if (childrenA.length > 0) {
-            return {
+            temp = {
               label: item.label,
               key: item.key ?? item.path,
               children: getMenu(item.children),
             };
           } else {
-            return {
+            temp = {
               label: item.label,
               key: item.key ?? item.path,
             };
           }
         } else {
-          return {
+          temp = {
             label: item.label,
             key: item.key ?? item.path,
           };
         }
+      } else {
+        temp = {};
       }
+
+      if (item?.icon) {
+        temp.icon = <item.icon />;
+      }
+
+      return temp;
     })
-    .filter((it) => it);
+    .filter((it) => it.label);
 };
 
-const getMenuP = (rts: Array<Router>, obj = {}): any => {
-  const tempObj = obj ?? {};
+const getMenuP = (rts: Array<Router> | undefined, obj = {}): any => {
+  const tempObj: any = obj ?? {};
   rts
     .filter((item) => item.label)
     .map((item) => {
