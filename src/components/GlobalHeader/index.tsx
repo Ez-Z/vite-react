@@ -1,28 +1,30 @@
 import { menusP } from "@/Routes";
-import storage from "good-storage";
 import { useEffect, useState } from "react";
+import { Breadcrumb } from "antd";
 import styles from "./index.module.scss";
 
 const GlobalHeader = ({
   defKey,
-  showBread = true,
+  showBread = false,
 }: {
   defKey: string;
   showBread: boolean;
 }) => {
   const [bread, setBread] = useState([]);
   useEffect(() => {
-    const keyPath = storage.session.get("keyPath");
-    const temp = [];
-    keyPath.map((it) => {
-      const menu = menusP[it];
-      temp.push({
-        label: menu.label,
-        key: it,
+    if (menusP[defKey]) {
+      const keyPath = menusP[defKey].keyPath ?? [];
+      const temp = [];
+      keyPath?.map((it) => {
+        const menu = menusP[it];
+        temp.push({
+          label: menu.label,
+          key: it,
+        });
       });
-    });
-    setBread(temp);
-  }, [defKey]);
+      setBread(temp);
+    }
+  }, [defKey, menusP]);
 
   return (
     <div className={styles.globalHeader}>
@@ -34,7 +36,15 @@ const GlobalHeader = ({
         </div>
         <div className={styles.rightContent}></div>
       </div>
-      {showBread && <div className={styles.breadcrumb}></div>}
+      {showBread && (
+        <div className={styles.breadcrumb}>
+          <Breadcrumb>
+            {bread.map((item) => (
+              <Breadcrumb.Item key={item?.key}>{item?.label}</Breadcrumb.Item>
+            ))}
+          </Breadcrumb>
+        </div>
+      )}
     </div>
   );
 };

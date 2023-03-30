@@ -1,28 +1,39 @@
 import { Menu } from "antd";
 import styles from "./index.module.scss";
-import { menus } from "@/Routes";
-import { useNavigate } from "react-router-dom";
-import storage from "good-storage";
+import { menus, menusP } from "@/Routes";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useLayoutEffect, useState } from "react";
 
 const GlobalMenu = ({ defKey }: { defKey: string }) => {
   const router = useNavigate();
+  const [defOpen, setDefOpen] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
   const menuClick = (menu: any) => {
-    storage.session.set("keyPath", menu.keyPath);
     router(menu?.key);
   };
-  const keyPath = storage.session.get("keyPath");
+
+  useLayoutEffect(() => {
+    if (menusP?.[defKey]) {
+      const { keyPath = [], hideInMenu } = menusP?.[defKey];
+      setDefOpen([keyPath[0]]);
+      if (hideInMenu) {
+        setSelectedKeys([keyPath[keyPath.length - 2]]);
+      } else {
+        setSelectedKeys([defKey]);
+      }
+    }
+  }, [defKey]);
 
   return (
     <div className={styles.globalMenu}>
       <Menu
-        selectedKeys={[defKey]}
-        defaultOpenKeys={
-          keyPath ? [keyPath?.[keyPath.length - 1]] : [menus?.[0]?.key]
-        }
+        selectedKeys={selectedKeys}
+        openKeys={defOpen}
         inlineIndent={16}
         items={menus}
         mode="inline"
         theme="dark"
+        onOpenChange={(v) => setDefOpen(v)}
         onClick={menuClick}
       />
     </div>

@@ -195,7 +195,6 @@ const getMenuP = (rts: Array<Router> | undefined, obj = {}, keyPath:any = []): a
 
 const menus = getMenu(routesList?.[0]?.children);
 const menusP = getMenuP(routesList?.[0]?.children, {});
-console.log("🚀 ~ file: index.tsx:196 ~ menusP:", menusP)
 
 const RoutesOut = () => {
   const routes = getRoutesList(routesList);
