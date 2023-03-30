@@ -166,20 +166,25 @@ const getMenu = (rts: Array<Router> | undefined): Array<any> => {
     .filter((it) => it.label);
 };
 
-const getMenuP = (rts: Array<Router> | undefined, obj = {}): any => {
+const getMenuP = (rts: Array<Router> | undefined, obj = {}, keyPath:any = []): any => {
   const tempObj: any = obj ?? {};
   rts
     .filter((item) => item.label)
     .map((item) => {
+      const tempPath = [...keyPath, item.path];
       if (item.children) {
         tempObj[item.key ?? item.path] = {
           label: item.label,
           key: item.key ?? item.path,
-          children: getMenuP(item.children, tempObj),
+          keyPath: tempPath,
+          hideInMenu: item.hideInMenu ?? false,
+          children: getMenuP(item.children, tempObj, tempPath),
         };
       } else {
         tempObj[item.key ?? item.path] = {
           label: item.label,
+          keyPath: tempPath,
+          hideInMenu: item.hideInMenu ?? false,
           key: item.key ?? item.path,
         };
       }
@@ -189,7 +194,8 @@ const getMenuP = (rts: Array<Router> | undefined, obj = {}): any => {
 };
 
 const menus = getMenu(routesList?.[0]?.children);
-const menusP = getMenuP(routesList?.[0]?.children);
+const menusP = getMenuP(routesList?.[0]?.children, {});
+console.log("🚀 ~ file: index.tsx:196 ~ menusP:", menusP)
 
 const RoutesOut = () => {
   const routes = getRoutesList(routesList);

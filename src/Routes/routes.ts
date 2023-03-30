@@ -25,13 +25,16 @@ const routes: Array<Router> = [
             path: "/home/first",
             label: "首页子页面1",
             element: lazy(() => import("@/pages/Home/FirstPage")),
+            children: [
+              {
+                path: "/home/first/form",
+                label: "首页子页面1的子页面",
+                hideInMenu: true,
+                element: lazy(() => import("@/pages/Home/FirstPage/Form")),
+              },
+            ]
           },
-          {
-            path: "/home/first/form",
-            label: "首页子页面1的子页面",
-            hideInMenu: true,
-            element: lazy(() => import("@/pages/Home/FirstPage/Form")),
-          },
+          
           {
             path: "/home/children",
             label: "首页子页面2",
