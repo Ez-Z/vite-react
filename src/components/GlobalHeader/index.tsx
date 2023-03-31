@@ -38,9 +38,11 @@ const GlobalHeader = ({
       </div>
       {showBread && (
         <div className={styles.breadcrumb}>
-          <Breadcrumb>
+          <Breadcrumb separator=">">
             {bread.map((item) => (
-              <Breadcrumb.Item key={item?.key}>{item?.label}</Breadcrumb.Item>
+              <>
+                <Breadcrumb.Item key={item?.key}>{item?.label}</Breadcrumb.Item>
+              </>
             ))}
           </Breadcrumb>
         </div>

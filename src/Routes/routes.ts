@@ -37,7 +37,7 @@ const routes: Array<Router> = [
           
           {
             path: "/home/children",
-            label: "首页子页面2",
+            label: "Table页",
             element: lazy(() => import("@/pages/Home/Children")),
           },
         ],

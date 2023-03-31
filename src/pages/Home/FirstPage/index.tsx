@@ -26,13 +26,6 @@ function Home(props) {
           >
             跳转到子页面
           </Button>
-          <h1
-            onClick={() => {
-              router("/second");
-            }}
-          >
-            Vite + React
-          </h1>
           <div className={styles.card}>
             <button
               onClick={() => {

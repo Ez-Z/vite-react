@@ -20,7 +20,7 @@ export function handleEnv({ prod, dev }) {
   if (process.env.NODE_ENV === "development") dev();
 }
 
-export function isNullOrUdf(val:any):boolean {
+export function isNullOrUdf(val: any): boolean {
   return val === undefined || val === null;
 }
 
@@ -146,4 +146,12 @@ export const getW = (num: string | number) => {
   } else {
     return 0;
   }
+};
+
+export const getAreaPath = (areaStr: string) => {
+  // const str = "内蒙古自治区锡林郭勒盟正镶白旗前进大街2699号";
+  const reg = /.+?(省|市|自治区|自治州|行政区|盟|旗|县|区)/g; // 省市区的正则
+  const area = areaStr.match(reg) ?? [];
+  const other = areaStr.split(area[area?.length - 1])[1];
+  return [...area, other];
 };

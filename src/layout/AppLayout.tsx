@@ -19,7 +19,7 @@ function AppLayout() {
         <GlobalMenu defKey={defKey} />
       </div>
       <div className={styles.right}>
-        <GlobalHeader defKey={defKey} />
+        <GlobalHeader defKey={defKey} showBread={true} />
         <div className={styles.content}>
           <Outlet />
         </div>
