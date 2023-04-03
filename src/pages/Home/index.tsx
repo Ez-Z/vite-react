@@ -22,18 +22,6 @@ function Home(props) {
       ) : (
         <>
           <Button onClick={() => router("/child")}>按钮</Button>
-          <div>
-            <a href="https://vitejs.dev" target="_blank">
-              <img src={viteLogo} className={styles.logo} alt="Vite logo" />
-            </a>
-            <a href="https://reactjs.org" target="_blank">
-              <img
-                src={reactLogo}
-                className={`${styles.logo} ${styles.react}`}
-                alt="React logo"
-              />
-            </a>
-          </div>
           <h1
             onClick={() => {
               router("/second");
@@ -42,14 +30,14 @@ function Home(props) {
             Vite + React
           </h1>
           <div className={styles.card}>
-            <button
+            <Button
               onClick={() => {
                 dispatch(setState({ currentTab: count + "home" }));
                 setCount((count) => count + 1);
               }}
             >
               count is {count}
-            </button>
+            </Button>
             <p>
               Edit <code>src/App.tsx</code> and save to test HMR
               <br />
@@ -60,9 +48,6 @@ function Home(props) {
               </span>
             </p>
           </div>
-          <p className={styles["read-the-docs"]}>
-            Click on the Vite and React logos to learn more
-          </p>
         </>
       )}
     </div>
