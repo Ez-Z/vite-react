@@ -1,23 +1,20 @@
+import { lazy, Suspense } from "react";
 const routes = [
   {
     path: "/",
-    component: '/Home',
+    component: lazy(() => import("@/pages/Home")),
     index: true,
-    // children: [
-    //   {
-    //     path: "/home/children",
-    //     component: '/Home/Children',
-    //   },
-    // ]
-  },
-  {
-    path: "/child",
-    component: '/Children',
+    children: [
+      {
+        path: "/child",
+        component: lazy(() => import("@/pages/Home/Children")),
+      },
+    ]
   },
   {
     path: "/second",
-    component: "/SecondPage",
+    component: lazy(() => import("@/pages/SecondPage")),
   },
-]
+];
 
 export default routes;
