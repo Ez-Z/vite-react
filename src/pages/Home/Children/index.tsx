@@ -87,7 +87,7 @@ const Second: FC = () => {
     },
   ];
 
-  console.log(getAreaPath("内蒙古自治区锡林郭勒盟正镶白旗前进大街2699号"));
+  // console.log(getAreaPath("内蒙古自治区锡林郭勒盟正镶白旗前进大街2699号"));
 
   return (
     <div className={styles.App}>
@@ -115,7 +115,7 @@ const Second: FC = () => {
         </Row>
       </Form>
 
-      <Table columns={columns} dataSource={data} />
+      <Table rowKey={"key"} columns={columns} dataSource={data} />
     </div>
   );
 };
