@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { setState } from "@/store/global";
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "antd-mobile";
 import styles from "./index.module.scss";
 
@@ -14,14 +15,15 @@ function Home(props) {
   const { currentTab } = useSelector((state: RootState) => state.global);
   const router = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={styles.App}>
-      {location.pathname !== "/" ? (
+      {location.pathname !== "/home" ? (
         <Outlet />
       ) : (
         <>
-          <Button onClick={() => router("/child")}>按钮</Button>
+          <Button onClick={() => router("/home/child")}>{t("btn")}</Button>
           <h1
             onClick={() => {
               router("/second");

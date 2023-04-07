@@ -31,9 +31,13 @@ const RoutesOut = () => {
   };
   const newRoutes = getRoutesList(routes);
 
-  const Routes = useRoutes(
-    newRoutes,
-  );
+  const Routes = useRoutes([
+    ...newRoutes,
+    {
+      path: "/",
+      element: <Navigate to="/home" />,
+    },
+  ]);
   return Routes;
 };
 

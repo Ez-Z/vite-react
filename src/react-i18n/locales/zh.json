@@ -1,0 +1,8 @@
+{
+  "btn": "按钮",
+  "methods": {
+      "renderProps": "用renderProps转换",
+      "hook": "用hook转换",
+      "hoc": "用hoc转换"
+  }
+}
