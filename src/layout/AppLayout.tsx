@@ -17,7 +17,7 @@ function AppLayout() {
                   : i18n.changeLanguage("zh");
               }}
             >
-              {i18n.language === "zh" ? t("切换到英文") : t("切换到中文")}
+              {t("changeLanguage")}
             </Button>
           </>
         )}

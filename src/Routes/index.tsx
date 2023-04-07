@@ -29,15 +29,18 @@ const RoutesOut = () => {
       }
     });
   };
-  const newRoutes = getRoutesList(routes);
+  const newRoutes = getRoutesList(routes).map((item) => {
+    item.children = [
+      ...item.children,
+      {
+        path: "/",
+        element: <Navigate to="/home" replace />,
+      },
+    ];
+    return item;
+  });
 
-  const Routes = useRoutes([
-    ...newRoutes,
-    {
-      path: "/",
-      element: <Navigate to="/home" replace={true} />,
-    },
-  ]);
+  const Routes = useRoutes([...newRoutes]);
   return Routes;
 };
 
