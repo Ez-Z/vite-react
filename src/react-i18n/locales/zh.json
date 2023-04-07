@@ -1,5 +1,6 @@
 {
   "btn": "按钮",
+  "home-childPage": "首页的子页面",
   "methods": {
       "renderProps": "用renderProps转换",
       "hook": "用hook转换",

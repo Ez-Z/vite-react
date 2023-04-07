@@ -35,7 +35,7 @@ const RoutesOut = () => {
     ...newRoutes,
     {
       path: "/",
-      element: <Navigate to="/home" />,
+      element: <Navigate to="/home" replace={true} />,
     },
   ]);
   return Routes;
