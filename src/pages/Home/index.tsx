@@ -24,13 +24,6 @@ function Home(props) {
       ) : (
         <>
           <Button onClick={() => router("/home/child")}>{t("btn")}</Button>
-          <h1
-            onClick={() => {
-              router("/second");
-            }}
-          >
-            Vite + React
-          </h1>
           <div className={styles.card}>
             <Button
               onClick={() => {
@@ -41,8 +34,6 @@ function Home(props) {
               count is {count}
             </Button>
             <p>
-              Edit <code>src/App.tsx</code> and save to test HMR
-              <br />
               <span>
                 {currentTab}
                 <br />
