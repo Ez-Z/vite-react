@@ -1,4 +1,15 @@
 .AppLayout {
   max-width: 100vw;
   height: 100vh;
+
+  >header {
+    width: 100%;
+    height: 40px;
+    text-align: right;
+  }
+
+  .content {
+    width: 100%;
+    height: calc(100% - 40px);
+  }
 }

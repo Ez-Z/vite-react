@@ -7,22 +7,26 @@ import "@/react-i18n/i18n";
 function AppLayout() {
   return (
     <div className={styles.AppLayout}>
-      <Translation>
-        {(t, { i18n }) => (
-          <>
-            <Button
-              onClick={() => {
-                i18n.language === "zh"
-                  ? i18n.changeLanguage("en")
-                  : i18n.changeLanguage("zh");
-              }}
-            >
-              {t("changeLanguage")}
-            </Button>
-          </>
-        )}
-      </Translation>
-      <Outlet />
+      <header>
+        <Translation>
+          {(t, { i18n }) => (
+            <>
+              <Button
+                onClick={() => {
+                  i18n.language === "zh"
+                    ? i18n.changeLanguage("en")
+                    : i18n.changeLanguage("zh");
+                }}
+              >
+                {t("changeLanguage")}
+              </Button>
+            </>
+          )}
+        </Translation>
+      </header>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
   );
 }

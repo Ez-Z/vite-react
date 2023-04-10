@@ -1,6 +1,4 @@
 import { useState, memo } from "react";
-import reactLogo from "@/assets/react.svg";
-import viteLogo from "/vite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store";
 import { setState } from "@/store/global";
@@ -34,7 +32,7 @@ function Home(props) {
               count is {count}
             </Button>
             <p>
-              <span>
+              <span onClick={() => router('/second')}>
                 {currentTab}
                 <br />
                 {import.meta.env.VITE_APP_PROXY_URL}

@@ -40,6 +40,7 @@ npm run build:prod
 | |____main.tsx // 入口文件
 | |____index.css // 公共样式
 | |____layout // layout
+| |____react-i18n // 国际化
 | |____utils // 工具类
 | |____assets // 资源文件夹
 | | |____images
