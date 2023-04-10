@@ -1,7 +1,21 @@
-import { Navigate } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import { useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
+import { Suspense } from "react";
+import { SpinLoading } from "antd-mobile";
 import routes from "./routes";
+
+export const Loading = () => {
+  return (
+    <div
+      style={{
+        paddingTop: 20,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <SpinLoading />
+    </div>
+  );
+};
 
 const RoutesOut = () => {
   //import!
@@ -11,7 +25,7 @@ const RoutesOut = () => {
         return {
           path: item.path,
           element: (
-            <Suspense fallback={<div>loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <item.component />
             </Suspense>
           ),
@@ -21,7 +35,7 @@ const RoutesOut = () => {
         return {
           path: item.path,
           element: (
-            <Suspense fallback={<div>loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <item.component />
             </Suspense>
           ),
