@@ -32,7 +32,7 @@ function Home(props) {
               count is {count}
             </Button>
             <p>
-              <span onClick={() => router('/second')}>
+              <span onClick={() => router("/second")}>
                 {currentTab}
                 <br />
                 {import.meta.env.VITE_APP_PROXY_URL}

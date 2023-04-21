@@ -46,12 +46,9 @@ npm run build:prod
 | | |____images
 | |____components // 公共组件
 | |____pages // 页面文件
+| |____services // 接口地址
 | |____Routes // 路由组件
-| | |____index.tsx
 | |____store // redux
-| | |____global.ts
-| | |____index.ts
-| | |____rootReducer.ts
 ```
 
 ### 规范
