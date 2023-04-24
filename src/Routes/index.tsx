@@ -46,11 +46,14 @@ const RoutesOut = () => {
     });
   };
   const newRoutes = getRoutesList(routes).map((item) => {
+    console.log(item.children)
     item.children = [
       ...item.children,
       {
         path: "/",
-        element: <Navigate to="/home" replace />,
+        element: (
+          <Navigate to={'/home'} replace />
+        ),
       },
     ];
     return item;

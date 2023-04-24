@@ -12,7 +12,7 @@ const routes = [
           {
             path: "/home",
             component: lazy(() => import("@/pages/Home")),
-          },,
+          },
           {
             path: "/home/child",
             component: lazy(() => import("@/pages/Home/Children")),

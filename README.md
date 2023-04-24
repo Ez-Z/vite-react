@@ -55,7 +55,7 @@ npm run build:prod
 
 1.使用 cssmodule 需要带上 module 后缀，例：home.module.scss
 
-2.className 命名使用驼峰或者 - 划线，例：homeCeter或home-center
+2.className 命名使用驼峰或者 - 划线，例：homeCeter 或 home-center
 
 3.缩进使用 2 空格或者 2 空格的 tab
 
@@ -63,9 +63,9 @@ npm run build:prod
 
 5.组件和页面文件夹使用大写开头驼峰命名
 
-6.图片使用下划线命名，用处_路径?（可以放到对应文件夹下）_名称，例：bg_home_btn
+6.图片使用下划线命名，用处*路径?（可以放到对应文件夹下）*名称，例：bg_home_btn
 
-7.尽量使用hooks写法
+7.尽量使用 hooks 写法
 
 ### react-router v6
 
@@ -78,12 +78,15 @@ router 组件嵌套子路由时注意 Outlet 使用；
 // 或者
 {
   path: "/home",
-  element: (
-    <Suspense>
-      <Home />
-    </Suspense>
-  ),
   children: [
+    {
+      path: "/home",
+      element: (
+        <Suspense>
+          <HomeChildren />
+        </Suspense>
+      ),
+    },
     {
       path: "/home/children",
       element: (
@@ -96,7 +99,7 @@ router 组件嵌套子路由时注意 Outlet 使用；
 }
 
 // Outlet显示子组件内容
-<div className="home"><Outlet /></div> 
+<div className="home"><Outlet /></div>
 
 ```
 
@@ -106,4 +109,36 @@ router 组件嵌套子路由时注意 Outlet 使用；
 const routerFn = useNavigate(); // to: 跳转路由, opt: {state: {}, replace: bool} ;
 
 routerFn("second", { replace: true, state: { params: { a: 123 } } });
+```
+
+总结后 routes 写法
+
+```javascript
+const routes = [
+  {
+    path: "/",
+    component: lazy(() => import("@/layout/AppLayout")), // layout
+    children: [
+      {
+        path: "/home",
+        // component: lazy(() => import("@/pages/Home")), // 如果子路由为全替换组件不需要component，由Outlet组件替换
+        index: true,
+        children: [
+          {
+            path: "/home",
+            component: lazy(() => import("@/pages/Home")),
+          },
+          {
+            path: "/home/child",
+            component: lazy(() => import("@/pages/Home/Children")),
+          },
+        ],
+      },
+      {
+        path: "/second",
+        component: lazy(() => import("@/pages/SecondPage")),
+      },
+    ],
+  },
+];
 ```
