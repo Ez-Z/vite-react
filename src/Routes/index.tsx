@@ -1,4 +1,4 @@
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes, Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { SpinLoading } from "antd-mobile";
 import routes from "./routes";
@@ -24,10 +24,12 @@ const RoutesOut = () => {
       if (item?.children && item?.children.length > 0) {
         return {
           path: item.path,
-          element: (
+          element: item.component ? (
             <Suspense fallback={<Loading />}>
               <item.component />
             </Suspense>
+          ) : (
+            <Outlet />
           ),
           children: getRoutesList(item?.children),
         };

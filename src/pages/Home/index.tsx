@@ -17,30 +17,24 @@ function Home(props) {
 
   return (
     <div className={styles.App}>
-      {location.pathname !== "/home" ? (
-        <Outlet />
-      ) : (
-        <>
-          <Button onClick={() => router("/home/child")}>{t("btn")}</Button>
-          <div className={styles.card}>
-            <Button
-              onClick={() => {
-                dispatch(setState({ currentTab: count + "home" }));
-                setCount((count) => count + 1);
-              }}
-            >
-              count is {count}
-            </Button>
-            <p>
-              <span onClick={() => router("/second")}>
-                {currentTab}
-                <br />
-                {import.meta.env.VITE_APP_PROXY_URL}
-              </span>
-            </p>
-          </div>
-        </>
-      )}
+      <Button onClick={() => router("/home/child")}>{t("btn")}</Button>
+      <div className={styles.card}>
+        <Button
+          onClick={() => {
+            dispatch(setState({ currentTab: count + "home" }));
+            setCount((count) => count + 1);
+          }}
+        >
+          count is {count}
+        </Button>
+        <p>
+          <span onClick={() => router("/second")}>
+            {currentTab}
+            <br />
+            {import.meta.env.VITE_APP_PROXY_URL}
+          </span>
+        </p>
+      </div>
     </div>
   );
 }
